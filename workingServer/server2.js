@@ -11,7 +11,7 @@ const mysql = require("mysql2")
 const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "R8qfgauzu",
+    password: "1234",
     database: "CS2803"
 })
 
@@ -47,7 +47,7 @@ app.use(express.urlencoded({extended:false}));
 
 app.post("/register", function(req, res){
             // we check to see if username is available
-            usernameQuery = "Select username from registeredUsers where username  = ?"
+            usernameQuery = "Select username from Users where username  = ?"
             conn.query(usernameQuery, [req.body.username], function(err, rows){ 
                 if(err){
                     res.json({success: false, message: "server error"})
@@ -60,9 +60,10 @@ app.post("/register", function(req, res){
                 else{
                     // we create a password hash before storing the password
                     passwordHash = bcrypt.hashSync(req.body.password, costFactor);
-                    insertUser = "insert into registeredUsers values(?, ?)"
+                    insertUser = "insert into Users values(?, ?)"
                     conn.query(insertUser, [req.body.username, passwordHash], function(err, rows){
-                        if (err){
+                        if (err) {
+                            console.log(err)
                             res.json({success: false, message: "server error"})
                         }
                         else{
@@ -76,7 +77,7 @@ app.post("/register", function(req, res){
 // post to route "attempt login"
 app.post("/attempt_login", function(req, res){
     // we check for the username and password to match.
-    conn.query("select password from registeredusers where username = ?", [req.body.username], function (err, rows){
+    conn.query("select password from Users where username = ?", [req.body.username], function (err, rows){
         if(err){
             res.json({success: false, message: "user doesn't exists"});
         }else{

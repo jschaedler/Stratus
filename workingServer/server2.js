@@ -80,14 +80,18 @@ app.post("/attempt_login", function(req, res){
     conn.query("select password from Users where username = ?", [req.body.username], function (err, rows){
         if(err){
             res.json({success: false, message: "user doesn't exists"});
-        }else{
-            storedPassword = rows[0].password // rows is an array of objects e.g.: [ { password: '12345' } ]
-            // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
-            if (bcrypt.compareSync(req.body.password, storedPassword)){
-                authenticated = true;
-                res.json({success: true, message: "logged in"})
-            }else{
-                res.json({success: false, message:"password is incorrect"})
+        } else {
+            if (rows.length == 0) {
+                res.json({ success: false, message: "User does not exist" })
+            } else {
+                storedPassword = rows[0].password // rows is an array of objects e.g.: [ { password: '12345' } ]
+                // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
+                if (bcrypt.compareSync(req.body.password, storedPassword)) {
+                    authenticated = true;
+                    res.json({ success: true, message: "logged in" })
+                } else {
+                    res.json({ success: false, message: "password is incorrect" })
+                }
             }
         }
     })  

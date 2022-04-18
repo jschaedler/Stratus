@@ -3,11 +3,82 @@
     <head>
         <title>Login</title>
         <!--import style sheet-->
-        <link href="index.css" rel="stylesheet">
-        <script type="module" src="main.js" defer></script>
+        <script  src="main.js" defer></script>
     </head>
+
     <body>
+
         <p>You made it!</p>
+        <form method= "search" action="/search">
+            <div>
+                <label for="departure"> Departure Date</label>
+                <input type="date" id="departure" name="departure" placeholder="2022-04-19">
+            </div>
+            <div>
+                <label for="return">Return Date</label>
+                <input type="date" name="return" id="return" placeholder="2022-04-19">
+            </div>
+            <div>
+                <label for="destination">Destination</label>
+                <input list="destinations" name="destination" id="destination" placeholder="XXX">
+                <datalist id="destinations">
+                    <option value="NYC"></option>
+                    <option value="ATL"></option>
+                    <option value="SAV"></option>
+                    <option value="IAD"></option>
+                    <option value="HNL"></option>
+                    <option value="MDW"></option>
+                    <option value="LEX"></option>
+                    <option value="BOS"></option>
+                    <option value="DET"></option>
+                    <option value="STL"></option>
+                    <option value="PHL"></option>
+                    <option value="HOU"></option>
+                    <option value="SEA"></option>
+                    <option value="SFO"></option>
+                    
+                </datalist>
+            </div>
+            <div>
+                <label for="origin">Origin</label>
+                <input list="origins" name="origin" id="origin" >
+                <datalist id="origins">
+                    <option value="NYC"></option>
+                    <option value="ATL"></option>
+                    <option value="SAV"></option>
+                    <option value="IAD"></option>
+                    <option value="HNL"></option>
+                    <option value="MDW"></option>
+                    <option value="LEX"></option>
+                    <option value="BOS"></option>
+                    <option value="DET"></option>
+                    <option value="STL"></option>
+                    <option value="PHL"></option>
+                    <option value="HOU"></option>
+                    <option value="SEA"></option>
+                    <option value="SFO"></option>
+                    
+                </datalist>
+        
+            </div>
+            <div>
+                <label for="cabinClass">Cabin Class</label>
+                <input list="cabinClasses" name="cabinClass" id="cabinClass">
+                <datalist id="cabinClasses">
+                    <option value="business"></option>
+                    <option value="economy"></option>
+                    <option value="first"></option>
+                    <option value="premium economy"></option>
+
+                </datalist>
+            </div>
+            <div>
+                <label for="passengers">Passengers</label>
+                <input type="number" name="passengers" id="passengers" min="1">
+            </div>
+            
+        </form>
+        <p hidden id="message"></p>
         
         <button id="track">track flights</button>
         

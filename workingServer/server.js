@@ -4,12 +4,6 @@ const { json } = require("express/lib/response");
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
-const { Duffel } = require('@duffel/api')
-
-const duffel = new Duffel({
-    token: duffel_test_V03aNNdroRuQ2YG6ON4_9syDpbphUkj_PjTHlgflF4t,
-})
-
 
 
 // let's make a connection to our mysql server
@@ -115,22 +109,7 @@ app.post("/attempt_login", function (req, res) {
 app.get("/main", function(req, res){
     if(authenticated){
         res.sendFile(__dirname + "/public/" + "main.html");
-        duffel.offerRequests.create({ 
-            slices : [
-              {
-                origin: "TLV",
-                destination: "NYC",
-                departure_date: "2021-12-21"
-              },
-              {
-                origin: "NYC",
-                destination: "TLV",
-                departure_date: "2021-12-25"
-              }
-            ],
-            passengers: [{ type: "adult" }, { type: "adult" }, { age: 1 }],
-            cabin_class: "economy"
-          }).then(response => console.log(response.data.offers)).catch(err => console.log(err))
+        
     }else{
         res.send("<p>not logged in <p><a href='/'>login page</a>")
     }

@@ -3,6 +3,8 @@ let username = document.getElementById("username")
 let password = document.getElementById("password")
 let confirmPassword = document.getElementById("confirm_password");
 
+
+
 function register(event){
     event.preventDefault()
     if (password.value === confirmPassword.value){

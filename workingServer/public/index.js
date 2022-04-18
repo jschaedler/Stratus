@@ -1,6 +1,23 @@
 let loginButton = document.getElementById("login")
 let username = document.getElementById("username")
 let password = document.getElementById("password")
+const data = null;
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+	}
+});
+
+xhr.open("GET", "https://compare-flight-prices.p.rapidapi.com/GetPricesAPI/StartFlightSearch.aspx?lapinfant=0&child=0&city2=NYC&date1=2022-05-11&youth=0&flightType=1&adults=1&cabin=1&infant=0&city1=LAX&seniors=0&date2=2021-01-02");
+xhr.setRequestHeader("X-RapidAPI-Host", "compare-flight-prices.p.rapidapi.com");
+xhr.setRequestHeader("X-RapidAPI-Key", "11f929f005msh8c534c5752f9716p165e04jsnf08ba251ab50");
+
+xhr.send(data);
+
 
 function login(event){
     event.preventDefault()

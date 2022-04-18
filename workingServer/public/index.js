@@ -3,7 +3,6 @@ let username = document.getElementById("username")
 let password = document.getElementById("password")
 const data = null
 
-
 function login(event){
     event.preventDefault()
     let xhr = new XMLHttpRequest
@@ -33,16 +32,18 @@ function responseHandler(){
 }
 
 loginButton.addEventListener("click", login)
-window.addEventListener("DOMContentLoaded", ()=> {
-    xhr = new XMLHttpRequest
-    xhr.addEventListener("load", responseHandler)
 
-    query=""
-    
-    url = `/index`
-    xhr.responseType = "json";   
-    xhr.open("GET", url)
-    
-    xhr.send()
+// window.addEventListener("DOMContentLoaded", () => {
+   
+//     xhr = new XMLHttpRequest
+//     xhr.addEventListener("load", responseHandler)
 
-})
+//     query=""
+    
+//     url = `/index`
+//     xhr.responseType = "json";   
+//     xhr.open("GET", url)
+    
+//     xhr.send()
+
+// })

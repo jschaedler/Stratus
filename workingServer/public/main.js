@@ -1,55 +1,38 @@
-import { Duffel } from '@duffel/api'
-offer = null
+// const { Duffel }=  require('@duffel/api')
+// offer = null
 
-const duffel = new Duffel({
-  token: duffel_test_V03aNNdroRuQ2YG6ON4_9syDpbphUkj_PjTHlgflF4t,
-})
+// const duffel = new Duffel({
+//   token: "duffel_test_V03aNNdroRuQ2YG6ON4_9syDpbphUkj_PjTHlgflF4t",
+// })
 
 button = document.getElementById("track")
 
 button.addEventListener("click", track())
     
-
-function track() {
-    console.log("hello")
-    duffel.offerRequests.create({ 
-        slices : [
-          {
-            origin: searchInputValueFrom,
-            destination: searchInputValueTo,
-            departure_date: StartDateInput
-          },
-          {
-            origin: searchInputValueTo,
-            destination: searchInputValueFrom,
-            departure_date: EndDateInput
-          }
-        ],
-        passengers: passengersArray,
-        cabin_class: "economy"
-      })
-      .then(function(response) {
-        res.json(response)
-        console.log(response.data.slices)
-      })
-      .catch(err => console.log(err))
-
-    // offer =  duffel.offerRequests.create({
-    //     slices: [
-    //         {
-    //             origin: "NYC",
-    //             destination: "ATL",
-    //             departure_date: "2021-06-21"
-    //         },
-    //         {
-    //             origin: "ATL",
-    //             destination: "NYC",
-    //             departure_date: "2021-07-21"
-    //         }
-    //     ],
-    //     passengers: [{ type: "adult" }, { type: "adult" }, { age: 1 }],
-    //     cabin_class: "business",
-    //     return_offers: false
-    // })
-
+function track(){
+    let xhr = new XMLHttpRequest
+    xhr.addEventListener("load", responseHandler)
+    query=''
+    // when submitting a GET request, the query string is appended to URL
+    // but in a POST request, do not attach the query string to the url
+    // instead pass it as a parameter in xhr.send()
+    url = `/search`
+    xhr.responseType = "json";   
+    xhr.open("POST", url)
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    xhr.send(query)
 }
+
+function responseHandler(){
+    let message = document.getElementById("message")
+    message.style.display = "block"
+    if (this.response.success){    
+        console.log(this.response.message)
+    }else{
+        console.log(this.response.success)
+        
+    }
+}
+

@@ -4,6 +4,12 @@ const { json } = require("express/lib/response");
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
+const { Duffel }=  require('@duffel/api')
+offer = null
+
+const duffel = new Duffel({
+  token: "duffel_test_V03aNNdroRuQ2YG6ON4_9syDpbphUkj_PjTHlgflF4t",
+})
 
 
 // let's make a connection to our mysql server
@@ -77,6 +83,7 @@ app.post("/register", function(req, res){
 
 app.get("/index", function(req, res) {
     authenticated = false;
+
     res.sendFile(__dirname + "/public/" + "/index.html")
     
 
@@ -115,6 +122,30 @@ app.get("/main", function(req, res){
     }
     
 })
+
+app.post("/search", function (req, res){
+    duffel.offerRequests.create({
+            slices: [
+                {
+                    origin: "NYC",
+                    destination: "ATL",
+                    departure_date: "2021-06-21"
+                },
+                {
+                    origin: "ATL",
+                    destination: "NYC",
+                    departure_date: "2021-07-21"
+                }
+            ],
+            passengers: [{ type: "adult" }, { type: "adult" }, { age: 1 }],
+            cabin_class: "business",
+            return_offers: false
+    })
+    console.log(duffel);
+    res.json({success: true, message: duffel})
+    
+})
+
 
 // Start the web server
 // 3000 is the port #

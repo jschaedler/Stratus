@@ -9,7 +9,11 @@
     <body>
 
         <p>You made it!</p>
-        <form method= "search" action="/search">
+        <form method= "POST" action="/search">
+            <div>
+                <label for="username"> Departure Date</label>
+                <input type="text" id="username" name="username" placeholder="">
+            </div>
             <div>
                 <label for="departure"> Departure Date</label>
                 <input type="date" id="departure" name="departure" placeholder="2022-04-19">
@@ -76,11 +80,29 @@
                 <label for="passengers">Passengers</label>
                 <input type="number" name="passengers" id="passengers" min="1">
             </div>
+            <input type="submit" id="track" value="track flights"></input>
             
         </form>
-        <p hidden id="message"></p>
+        <input type="submit" id="save" value="save search"></input>
+
         
-        <button id="track">track flights</button>
+        
+        <p hidden id="message">
+           <table>
+               <tr>
+                   <td id="flight1"></td>
+               </tr>
+               <tr>
+                    <td id="flight2"></td>
+                </tr>
+                <tr>
+                    <td id="flight3"></td>
+                </tr>
+                
+           </table>
+        </p>
+        
+        
         
     </body>
 </html>

@@ -110,7 +110,44 @@ app.post("/attempt_login", function (req, res) {
             }
         }
     })  
+    
 })
+
+app.post("/Setup", function (req, res) {
+    conn.query("insert into search values(?, NULL, NULL, NULL, NULL)", [req.body.username], function (err, rows) {
+        if (err) {
+            res.json({ success: false, message: "error" });
+        } else {            
+ 
+            res.json({ success: true, message: "setup complete" })
+            
+            
+        }
+    })
+})
+
+app.post("/saveSearch", function (req, res) {
+    conn.query("Insert into search values(?,?,?,?,?)", [req.body.username, req.body.dest, req.body.origin, req.body.cabinClass, req.body.passengers], function (err, rows) {
+        
+        if(err){
+            res.json({success: false, message: "server error"});
+        } else {
+            res.json({success:true, message: "success"})
+        }
+    })  
+    
+})
+
+// dest = rows[0].dest // rows is an array of objects e.g.: [ { password: '12345' } ]
+// origin = rows[0].origin
+// cabinClass = rows[0].cabinClass
+// passengers = rows[0].passengers
+
+
+// // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
+
+
+// res.json({ success: true, message: "setup complete", dest: dest, origin: origin, cabinClass: cabinClass, passengers: passengers })
 
 // if the user navigates to localhost:3000/main, then the main page will be loaded.
 app.get("/main", function(req, res){
@@ -124,28 +161,36 @@ app.get("/main", function(req, res){
 })
 
 
-app.post("/search", function (req, res){
-    duffel.offerRequests.create({
-            slices: [
-                {
-                    origin: "NYC",
-                    destination: "ATL",
-                    departure_date: "2021-06-21"
-                },
-                {
-                    origin: "ATL",
-                    destination: "NYC",
-                    departure_date: "2021-07-21"
-                }
-            ],
-            passengers: [{ type: "adult" }, { type: "adult" }, { age: 1 }],
-            cabin_class: "business",
-            return_offers: false
+app.post("/search", async function (req, res) {
+    console.log("hello1111")
+    const offerRequest = await duffel.offerRequests.create({
+        "slices": [
+            {
+              "origin": 'LAX',
+              "destination": 'JFK',
+              "departure_date": "2022-10-13T14:59:18.521Z"
+            },
+            {
+              "origin": 'JFK',
+              "destination": 'LAX',
+              "departure_date": "2022-10-21T14:59:18.521Z"
+            },
+          ],
+          "passengers": [{ "type": "adult" }],
+          "cabin_class": null
     })
-    console.log(duffel);
-    res.json({success: true, message: duffel})
+
+    
+    
+    console.log("hellllllloooooo22222")
+    const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
+    console.log("HEEEEEELLLLLLOOO")
+    console.log({ offers })
+
+    res.json({ success: true, message: offers.data })
     
 })
+
 
 
 // Start the web server

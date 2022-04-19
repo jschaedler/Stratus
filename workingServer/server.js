@@ -162,7 +162,7 @@ app.get("/main", function(req, res){
 
 
 app.post("/search", async function (req, res) {
-    console.log("hello1111")
+    console.log("making request")
     const offerRequest = await duffel.offerRequests.create({
         "slices": [
             {
@@ -182,9 +182,9 @@ app.post("/search", async function (req, res) {
 
     
     
-    console.log("hellllllloooooo22222")
+    console.log("offers recieved")
     const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
-    console.log("HEEEEEELLLLLLOOO")
+    console.log("showing offers")
     console.log({ offers })
 
     res.json({ success: true, message: offers.data })

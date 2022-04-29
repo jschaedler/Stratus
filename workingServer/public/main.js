@@ -31,12 +31,26 @@ function responseHandler(){
     let flight2 = document.getElementById("flight2")
     let flight3 = document.getElementById("flight3")
     message.style.display = "block"
-    if (this.response.success){    
+    if (this.response.success) {   
         console.log(this.response.message)
+        let price1 = this.response.message[0]
+        let price2 = this.response.message[0]
+        let price3 = this.response.message[0]
+        let flightArr = []
+        for (f of this.response.message) {
+            if (f === flightArr[flightArr.length - 1]) {
+                continue
+            }
+            flightArr.push(f)
+        }
+        flightArr.sort((a, b) =>{return a.total_amount - b.total_amount})
+   
+        console.log(flightArr)
+
         message.innerText = "Here are the top 3 flights"
-        flight1.innerText = "Round trip from " +this.response.message[0].slices[0].origin.iata_code +" to " + this.response.message[0].slices[0].destination.iata_code + "\n $" +this.response.message[0].total_amount
-        flight2.innerText = "Round trip from " +this.response.message[1].slices[0].origin.iata_code +" to " + this.response.message[1].slices[0].destination.iata_code + "\n $" +this.response.message[1].total_amount
-        flight3.innerText = "Round trip from " +this.response.message[2].slices[0].origin.iata_code +" to " + this.response.message[2].slices[0].destination.iata_code + "\n $" +this.response.message[2].total_amount
+        flight1.innerText = "Round trip from " +flightArr[0].slices[0].origin.iata_code +" to " + flightArr[0].slices[0].destination.iata_code + "\n $" +flightArr[0].total_amount
+        flight2.innerText = "Round trip from " +flightArr[1].slices[0].origin.iata_code +" to " + flightArr[1].slices[0].destination.iata_code + "\n $" +flightArr[1].total_amount
+        flight3.innerText = "Round trip from " +flightArr[2].slices[0].origin.iata_code +" to " + flightArr[2].slices[0].destination.iata_code + "\n $" +flightArr[2].total_amount
         
     } else {
         console.log(this.response.success)

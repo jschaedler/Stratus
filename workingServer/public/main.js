@@ -11,12 +11,13 @@ let returnDate = document.getElementById("return")
     
 function track(event) {
 
-    console.log(d.toISOString())
+    let retd = new Date(returnDate.value)
+    let depd = new Date(departureDate.value)
 
     event.preventDefault()
     let xhr = new XMLHttpRequest
     xhr.addEventListener("load", responseHandler)
-    query=`dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}`
+    query=`dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}&depart=${depd.toISOString()}&return=${retd.toISOString()} `
     // when submitting a GET request, the query string is appended to URL
     // but in a POST request, do not attach the query string to the url
     // instead pass it as a parameter in xhr.send()
@@ -37,9 +38,7 @@ function responseHandler(){
     message.style.display = "block"
     if (this.response.success) {   
         console.log(this.response.message)
-        let price1 = this.response.message[0]
-        let price2 = this.response.message[0]
-        let price3 = this.response.message[0]
+        
         let flightArr = []
         for (f of this.response.message) {
             if (f === flightArr[flightArr.length - 1]) {
@@ -47,14 +46,45 @@ function responseHandler(){
             }
             flightArr.push(f)
         }
-        flightArr.sort((a, b) =>{return a.total_amount - b.total_amount})
-   
+        flightArr.sort((a, b) => { return a.total_amount - b.total_amount })
+        let price1 = flightArr[0]
+        let price2 = flightArr[flightArr.length/2]
+        let price3 = flightArr[flightArr.length-1]
+        let dup = price2;
+        // for (f of flightArr) {
+        //     if (price1 !== price2 && price2 !== price3 && price1 !== price3) {
+        //         break
+        //     }  
+        //     if (f !== dup) { 
+        //         if (dup ==+ price2) {
+        //             price2 = f
+        //             dup = price3
+        //         }
+        //         if (dup === price3 && dup !== price1) {
+        //             price3 = f
+        //             break
+        //         }
+                
+        //     }
+            
+        // }
+        if (price1.total_amount === price2.total_amount) {
+            console.log("dpooo")
+        }
+        if (price2.total_amount === price3.total_amount) {
+            console.log("saldfkj")
+            
+        }
+        console.log(price1)
+        console.log(price2)
+        console.log(price3)
+
         console.log(flightArr)
 
         message.innerText = "Here are the top 3 flights"
-        flight1.innerText = "Round trip from " +flightArr[0].slices[0].origin.iata_code +" to " + flightArr[0].slices[0].destination.iata_code + "\n $" +flightArr[0].total_amount
-        flight2.innerText = "Round trip from " +flightArr[1].slices[0].origin.iata_code +" to " + flightArr[1].slices[0].destination.iata_code + "\n $" +flightArr[1].total_amount
-        flight3.innerText = "Round trip from " +flightArr[2].slices[0].origin.iata_code +" to " + flightArr[2].slices[0].destination.iata_code + "\n $" +flightArr[2].total_amount
+        flight1.innerText = "Round trip from " +price1.slices[0].origin.iata_code +" to " + price1.slices[0].destination.iata_code + "\n $" +price1.total_amount
+        flight2.innerText = "Round trip from " +price2.slices[0].origin.iata_code +" to " + price2.slices[0].destination.iata_code + "\n $" +price2.total_amount
+        flight3.innerText = "Round trip from " +price3.slices[0].origin.iata_code +" to " + price3.slices[0].destination.iata_code + "\n $" +price3.total_amount
         
     } else {
         console.log(this.response.success)

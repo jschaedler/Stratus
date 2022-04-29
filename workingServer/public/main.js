@@ -6,13 +6,17 @@ let dest = document.getElementById("destination")
 let origin = document.getElementById("origin")
 let cabinClass = document.getElementById("cabinClass")
 let passengers = document.getElementById("passengers")
-let username = document.getElementById("username")
+let departureDate = document.getElementById("departure")
+let returnDate = document.getElementById("return")
     
 function track(event) {
+
+    console.log(d.toISOString())
+
     event.preventDefault()
     let xhr = new XMLHttpRequest
     xhr.addEventListener("load", responseHandler)
-    query=`username=${username.value}&dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}`
+    query=`dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}`
     // when submitting a GET request, the query string is appended to URL
     // but in a POST request, do not attach the query string to the url
     // instead pass it as a parameter in xhr.send()
@@ -60,10 +64,15 @@ function responseHandler(){
 
 }
 
+
+
 function saveSearch(event) {
+    let retd = new Date(returnDate.value)
+    let depd = new Date(departureDate.value)
+
     let xhr = new XMLHttpRequest
     xhr.addEventListener("load", responseHandler2)
-    query=`username=${username.value}&dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}`
+    query=`dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}&depart=${depd.toISOString()}&return=${retd.toISOString()}`
     // when submitting a GET request, the query string is appended to URL
     // but in a POST request, do not attach the query string to the url
     // instead pass it as a parameter in xhr.send()

@@ -169,16 +169,19 @@ app.get("/main", function(req, res){
 
 app.post("/search", async function (req, res) {
     console.log("making request")
+    console.log(req.body.depart)
+    
+    console.log(req.body.return)
     const offerRequest = await duffel.offerRequests.create({
         "slices": [
             {
-              "origin": 'LAX',
-              "destination": 'JFK',
-              "departure_date": "2022-10-13T14:59:18.521Z"
+              "origin": req.body.origin,
+              "destination": req.body.dest,
+              "departure_date": req.body.depart
             },
             {
-              "origin": 'JFK',
-              "destination": 'LAX',
+              "origin": req.body.dest,
+              "destination": req.body.origin,
               "departure_date": "2022-10-21T14:59:18.521Z"
             },
           ],

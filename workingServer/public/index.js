@@ -1,7 +1,18 @@
 let loginButton = document.getElementById("login")
 let username = document.getElementById("username")
 let password = document.getElementById("password")
+let landing = document.getElementById("landing-content")
+let loginContent = document.getElementById("login-content")
+let loadLogin = document.getElementById("login-button-load")
 const data = null
+
+loadLogin.addEventListener("click", load)
+
+function load(event) {
+    loginContent.removeAttribute("hidden")
+    landing.setAttribute("hidden", true)
+}
+
 
 function login(event){
     event.preventDefault()

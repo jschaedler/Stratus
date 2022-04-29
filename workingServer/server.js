@@ -4,6 +4,7 @@ const { json } = require("express/lib/response");
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
+let currentUser = null
 const { Duffel }=  require('@duffel/api')
 offer = null
 
@@ -83,7 +84,7 @@ app.post("/register", function(req, res){
 
 app.get("/index", function(req, res) {
     authenticated = false;
-
+    currentUser = null
     res.sendFile(__dirname + "/public/" + "/index.html")
     
 
@@ -91,6 +92,8 @@ app.get("/index", function(req, res) {
 // post to route "attempt login"
 app.post("/attempt_login", function (req, res) {
     authenticated = false
+    currentUser = null
+
     // we check for the username and password to match.
     conn.query("select password from Users where username = ?", [req.body.username], function (err, rows){
         if(err){
@@ -103,6 +106,7 @@ app.post("/attempt_login", function (req, res) {
                 // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
                 if (bcrypt.compareSync(req.body.password, storedPassword)) {
                     authenticated = true;
+                    currentUser = req.body.username
                     res.json({ success: true, message: "logged in" })
                 } else {
                     res.json({ success: false, message: "password is incorrect" })
@@ -114,7 +118,7 @@ app.post("/attempt_login", function (req, res) {
 })
 
 app.post("/Setup", function (req, res) {
-    conn.query("insert into search values(?, NULL, NULL, NULL, NULL)", [req.body.username], function (err, rows) {
+    conn.query("insert into search values(?, NULL, NULL, NULL, NULL, NULL, NULL)", [req.body.username], function (err, rows) {
         if (err) {
             res.json({ success: false, message: "error" });
         } else {            
@@ -127,9 +131,10 @@ app.post("/Setup", function (req, res) {
 })
 
 app.post("/saveSearch", function (req, res) {
-    conn.query("Insert into search values(?,?,?,?,?)", [req.body.username, req.body.dest, req.body.origin, req.body.cabinClass, req.body.passengers], function (err, rows) {
+    conn.query("Update search set dest = ?, origin = ?, cabinClass = ?, passengers = ?, departuredate=?, returndate=? where username = ?", [req.body.dest, req.body.origin, req.body.cabinClass, req.body.passengers, req.body.depart, req.body.return, currentUser], function (err, rows) {
         
-        if(err){
+        if (err) {
+            console.log(err)
             res.json({success: false, message: "server error"});
         } else {
             res.json({success:true, message: "success"})
@@ -137,6 +142,7 @@ app.post("/saveSearch", function (req, res) {
     })  
     
 })
+
 
 // dest = rows[0].dest // rows is an array of objects e.g.: [ { password: '12345' } ]
 // origin = rows[0].origin

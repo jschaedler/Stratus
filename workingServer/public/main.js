@@ -89,12 +89,12 @@ function responseHandler() {
         console.log(price2)
         console.log(price3)
 
-        console.log(flightArr)
+        console.log(price1.slices[0].segments[0].passengers[0].cabin_class)
 
         message.innerText = "Here are the top 3 flights"
-        flight1.innerText = "Round trip from " +price1.slices[0].origin.iata_code +" to " + price1.slices[0].destination.iata_code + "\n $" +price1.total_amount
-        flight2.innerText = "Round trip from " +price2.slices[0].origin.iata_code +" to " + price2.slices[0].destination.iata_code + "\n $" +price2.total_amount
-        flight3.innerText = "Round trip from " +price3.slices[0].origin.iata_code +" to " + price3.slices[0].destination.iata_code + "\n $" +price3.total_amount
+        flight1.innerText = "Round trip in "+price1.slices[0].segments[0].passengers[0].cabin_class +" from " +price1.slices[0].origin.iata_code +" to " + price1.slices[0].destination.iata_code + "\n $" +price1.total_amount
+        flight2.innerText = "Round trip in "+price2.slices[0].segments[0].passengers[0].cabin_class +" from " +price2.slices[0].origin.iata_code +" to " + price2.slices[0].destination.iata_code + "\n $" +price2.total_amount
+        flight3.innerText = "Round trip in "+price3.slices[0].segments[0].passengers[0].cabin_class+" from " +price3.slices[0].origin.iata_code +" to " + price3.slices[0].destination.iata_code + "\n $" +price3.total_amount
         
     } else {
         console.log(this.response.success)
@@ -138,6 +138,7 @@ function responseHandler2() {
     }
 }
 function loadOffers(event) {
+    loadContent.setAttribute("hidden", true)
     event.preventDefault()
     loader.removeAttribute("hidden")
     let xhr = new XMLHttpRequest

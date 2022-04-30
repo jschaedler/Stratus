@@ -170,8 +170,9 @@ app.get("/main", function(req, res){
 
 
 app.post("/search", async function (req, res) {
+
     console.log("making request")
-    console.log(req.body.depart)
+    console.log(req.body)
     
     console.log(req.body.return)
     const offerRequest = await duffel.offerRequests.create({
@@ -179,16 +180,16 @@ app.post("/search", async function (req, res) {
             {
               "origin": req.body.origin,
               "destination": req.body.dest,
-              "departure_date": req.body.depart
+              "departure_date": req.body.depart.split("T")[0]
             },
             {
               "origin": req.body.dest,
               "destination": req.body.origin,
-              "departure_date": "2022-10-21T14:59:18.521Z"
+              "departure_date": req.body.return.split("T")[0]
             },
           ],
           "passengers": [{ "type": "adult" }],
-          "cabin_class": null
+          "cabin_class": req.body.cabinClass
     })
 
     
@@ -196,7 +197,7 @@ app.post("/search", async function (req, res) {
     console.log("offers recieved")
     const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
     console.log("showing offers")
-    console.log({ offers })
+    // console.log({ offers })
 
     res.json({ success: true, message: offers.data })
     
@@ -204,31 +205,28 @@ app.post("/search", async function (req, res) {
 
 app.post("/GetOffers", async function (req, res) {
     console.log("making request")
-    console.log(req.body.depart)
     conn.query("select * from search where username = ?", [ currentUser], async function (err, rows) {
         
         if (err) {
             console.log(err)
             res.json({success: false, message: "server error"});
         } else {
-            console.log(rows[0].origin)
-            console.log(typeof ('LAX'))
-            console.log(typeof(rows[0].dest))
+           
             const offerRequest = await duffel.offerRequests.create({
                 "slices": [
                     {
                       "origin": rows[0].origin,
                       "destination": rows[0].dest,
-                      "departure_date": "2022-10-28T19:17:43.310Z"
+                      "departure_date": rows[0].departuredate.split("T")[0]
                     },
                     {
                       "origin": rows[0].dest,
                       "destination": rows[0].origin,
-                      "departure_date": "2022-10-29T14:59:18.521Z"
+                      "departure_date": rows[0].returndate.split("T")[0]
                     },
                   ],
                   "passengers": [{ "type": "adult" }],
-                  "cabin_class": null
+                  "cabin_class": rows[0].cabinClass
             })
         
             
@@ -236,7 +234,6 @@ app.post("/GetOffers", async function (req, res) {
             console.log("offers recieved")
             const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
             console.log("showing offers")
-            console.log({ offers })
         
             res.json({ success: true, message: offers.data })
         }

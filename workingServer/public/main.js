@@ -137,6 +137,7 @@ function responseHandler2() {
        console.log(this.response.message)
     }
 }
+
 function loadOffers(event) {
     loadContent.setAttribute("hidden", true)
     event.preventDefault()

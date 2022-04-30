@@ -3,12 +3,22 @@
     <head>
         <title>Login</title>
         <!--import style sheet-->
+        <link href="main.css" rel="stylesheet">
+
         <script  src="main.js" defer></script>
     </head>
 
     <body>
 
+        <div id="load-content" >
+            <h1>Create a new search or check up on new offers from your last search</h1>
+            <button id="new-search">New Search</button>
+            <button id="old-search" >New Offers</button>
+        
+        </div>
+
         <p>You made it!</p>
+        <div id="search-content"  hidden>
         <form method= "POST" action="/search">
             
             <div>
@@ -83,7 +93,8 @@
         </form>
         <input type="submit" id="save" value="save search"></input>
 
-        
+    </div>
+    <div id="loader"  hidden></div>
         
         <p hidden id="message">
            <table>

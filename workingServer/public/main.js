@@ -8,11 +8,21 @@ let cabinClass = document.getElementById("cabinClass")
 let passengers = document.getElementById("passengers")
 let departureDate = document.getElementById("departure")
 let returnDate = document.getElementById("return")
+let searchContent = document.getElementById("search-content")
+let loadContent = document.getElementById("load-content")
+let newSearch = document.getElementById("new-search")
+let newOffers = document.getElementById("old-search")
+let loader = document.getElementById("loader")
+let message = document.getElementById("message")
     
 function track(event) {
+    message.setAttribute("hidden", true)
+    loader.removeAttribute("hidden")
 
     let retd = new Date(returnDate.value)
     let depd = new Date(departureDate.value)
+    console.log(retd)
+    console.log(retd.toISOString())
 
     event.preventDefault()
     let xhr = new XMLHttpRequest
@@ -30,12 +40,12 @@ function track(event) {
     xhr.send(query)
 }
 
-function responseHandler(){
-    let message = document.getElementById("message")
+function responseHandler() {
+    loader.setAttribute("hidden", true)
     let flight1 = document.getElementById("flight1")
     let flight2 = document.getElementById("flight2")
     let flight3 = document.getElementById("flight3")
-    message.style.display = "block"
+    message.removeAttribute("hidden")
     if (this.response.success) {   
         console.log(this.response.message)
         
@@ -99,7 +109,7 @@ function responseHandler(){
 function saveSearch(event) {
     let retd = new Date(returnDate.value)
     let depd = new Date(departureDate.value)
-
+    loader.removeAttribute("hidden")
     let xhr = new XMLHttpRequest
     xhr.addEventListener("load", responseHandler2)
     query=`dest=${dest.value}&origin=${origin.value}&cabinClass=${cabinClass.value}&passengers=${passengers.value}&depart=${depd.toISOString()}&return=${retd.toISOString()}`
@@ -115,7 +125,9 @@ function saveSearch(event) {
     xhr.send(query)
 }
 
-function responseHandler2(){
+function responseHandler2() {
+    loader.setAttribute("hidden", true)
+    
     let message = document.getElementById("message")
     message.style.display = "block"
     if (this.response.success){    
@@ -125,6 +137,34 @@ function responseHandler2(){
        console.log(this.response.message)
     }
 }
+function loadOffers(event) {
+    event.preventDefault()
+    loader.removeAttribute("hidden")
+    let xhr = new XMLHttpRequest
+    xhr.addEventListener("load", responseHandler)
+    query=``
+    // when submitting a GET request, the query string is appended to URL
+    // but in a POST request, do not attach the query string to the url
+    // instead pass it as a parameter in xhr.send()
+    url = `/GetOffers`
+    xhr.responseType = "json";   
+    xhr.open("POST", url)
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    // notice the query string is passed as a parameter in xhr.send()
+    // this is to prevent the data from being easily sniffed
+    xhr.send(query)
+
+
+}
+function loadSearch(event) {
+    event.preventDefault()
+    loadContent.setAttribute("hidden", true)
+    searchContent.removeAttribute("hidden")
+    
+
+}
+newSearch.addEventListener("click", loadSearch)
+newOffers.addEventListener("click", loadOffers)
 button.addEventListener("click", track)
 save.addEventListener("click", saveSearch)
 

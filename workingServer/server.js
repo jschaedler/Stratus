@@ -1,6 +1,6 @@
 const express = require("express");
 const res = require("express/lib/response");
-const { json } = require("express/lib/response");
+const { json, type } = require("express/lib/response");
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
@@ -144,6 +144,8 @@ app.post("/saveSearch", function (req, res) {
 })
 
 
+
+
 // dest = rows[0].dest // rows is an array of objects e.g.: [ { password: '12345' } ]
 // origin = rows[0].origin
 // cabinClass = rows[0].cabinClass
@@ -200,7 +202,49 @@ app.post("/search", async function (req, res) {
     
 })
 
-
+app.post("/GetOffers", async function (req, res) {
+    console.log("making request")
+    console.log(req.body.depart)
+    conn.query("select * from search where username = ?", [ currentUser], async function (err, rows) {
+        
+        if (err) {
+            console.log(err)
+            res.json({success: false, message: "server error"});
+        } else {
+            console.log(rows[0].origin)
+            console.log(typeof ('LAX'))
+            console.log(typeof(rows[0].dest))
+            const offerRequest = await duffel.offerRequests.create({
+                "slices": [
+                    {
+                      "origin": rows[0].origin,
+                      "destination": rows[0].dest,
+                      "departure_date": "2022-10-28T19:17:43.310Z"
+                    },
+                    {
+                      "origin": rows[0].dest,
+                      "destination": rows[0].origin,
+                      "departure_date": "2022-10-29T14:59:18.521Z"
+                    },
+                  ],
+                  "passengers": [{ "type": "adult" }],
+                  "cabin_class": null
+            })
+        
+            
+            
+            console.log("offers recieved")
+            const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
+            console.log("showing offers")
+            console.log({ offers })
+        
+            res.json({ success: true, message: offers.data })
+        }
+    })  
+    console.log(req.body.return)
+    
+    
+})
 
 // Start the web server
 // 3000 is the port #

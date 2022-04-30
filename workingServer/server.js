@@ -89,6 +89,7 @@ app.get("/index", function(req, res) {
     
 
 })
+
 // post to route "attempt login"
 app.post("/attempt_login", function (req, res) {
     authenticated = false
@@ -107,7 +108,7 @@ app.post("/attempt_login", function (req, res) {
                 if (bcrypt.compareSync(req.body.password, storedPassword)) {
                     authenticated = true;
                     currentUser = req.body.username
-                    res.json({ success: true, message: "logged in" })
+                    res.json({ success: true, message: __dirname + "/public/" + "main.html" })
                 } else {
                     res.json({ success: false, message: "password is incorrect" })
                 }

@@ -6,7 +6,7 @@ let confirmPassword = document.getElementById("confirm_password");
 
 
 function register(event) {
-    // seachSetUp()
+    seachSetUp()
     event.preventDefault()
     if (password.value === confirmPassword.value){
         let xhr = new XMLHttpRequest

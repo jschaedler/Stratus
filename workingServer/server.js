@@ -1,9 +1,10 @@
 const express = require("express");
 const res = require("express/lib/response");
-const { json } = require("express/lib/response");
+const { json, type } = require("express/lib/response");
 const bcrypt = require("bcryptjs")// for hashing passwords
 const costFactor = 10; // used for the alt
 let authenticated = false; // used to see if user is logged in
+let currentUser = null
 const { Duffel }=  require('@duffel/api')
 offer = null
 
@@ -83,14 +84,17 @@ app.post("/register", function(req, res){
 
 app.get("/index", function(req, res) {
     authenticated = false;
-
+    currentUser = null
     res.sendFile(__dirname + "/public/" + "/index.html")
     
 
 })
+
 // post to route "attempt login"
 app.post("/attempt_login", function (req, res) {
     authenticated = false
+    currentUser = null
+
     // we check for the username and password to match.
     conn.query("select password from Users where username = ?", [req.body.username], function (err, rows){
         if(err){
@@ -103,7 +107,8 @@ app.post("/attempt_login", function (req, res) {
                 // bcrypt.compareSync let's us compare the plaintext password to the hashed password we stored in our database
                 if (bcrypt.compareSync(req.body.password, storedPassword)) {
                     authenticated = true;
-                    res.json({ success: true, message: "logged in" })
+                    currentUser = req.body.username
+                    res.json({ success: true, message: __dirname + "/public/" + "main.html" })
                 } else {
                     res.json({ success: false, message: "password is incorrect" })
                 }
@@ -114,7 +119,7 @@ app.post("/attempt_login", function (req, res) {
 })
 
 app.post("/Setup", function (req, res) {
-    conn.query("insert into search values(?, NULL, NULL, NULL, NULL)", [req.body.username], function (err, rows) {
+    conn.query("insert into search values(?, NULL, NULL, NULL, NULL, NULL, NULL)", [req.body.username], function (err, rows) {
         if (err) {
             res.json({ success: false, message: "error" });
         } else {            
@@ -127,9 +132,10 @@ app.post("/Setup", function (req, res) {
 })
 
 app.post("/saveSearch", function (req, res) {
-    conn.query("Insert into search values(?,?,?,?,?)", [req.body.username, req.body.dest, req.body.origin, req.body.cabinClass, req.body.passengers], function (err, rows) {
+    conn.query("Update search set dest = ?, origin = ?, cabinClass = ?, passengers = ?, departuredate=?, returndate=? where username = ?", [req.body.dest, req.body.origin, req.body.cabinClass, req.body.passengers, req.body.depart, req.body.return, currentUser], function (err, rows) {
         
-        if(err){
+        if (err) {
+            console.log(err)
             res.json({success: false, message: "server error"});
         } else {
             res.json({success:true, message: "success"})
@@ -137,6 +143,9 @@ app.post("/saveSearch", function (req, res) {
     })  
     
 })
+
+
+
 
 // dest = rows[0].dest // rows is an array of objects e.g.: [ { password: '12345' } ]
 // origin = rows[0].origin
@@ -162,22 +171,26 @@ app.get("/main", function(req, res){
 
 
 app.post("/search", async function (req, res) {
+
     console.log("making request")
+    console.log(req.body)
+    
+    console.log(req.body.return)
     const offerRequest = await duffel.offerRequests.create({
         "slices": [
             {
-              "origin": 'LAX',
-              "destination": 'JFK',
-              "departure_date": "2022-10-13T14:59:18.521Z"
+              "origin": req.body.origin,
+              "destination": req.body.dest,
+              "departure_date": req.body.depart.split("T")[0]
             },
             {
-              "origin": 'JFK',
-              "destination": 'LAX',
-              "departure_date": "2022-10-21T14:59:18.521Z"
+              "origin": req.body.dest,
+              "destination": req.body.origin,
+              "departure_date": req.body.return.split("T")[0]
             },
           ],
           "passengers": [{ "type": "adult" }],
-          "cabin_class": null
+          "cabin_class": req.body.cabinClass
     })
 
     
@@ -185,13 +198,51 @@ app.post("/search", async function (req, res) {
     console.log("offers recieved")
     const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
     console.log("showing offers")
-    console.log({ offers })
+    // console.log({ offers })
 
     res.json({ success: true, message: offers.data })
     
 })
 
-
+app.post("/GetOffers", async function (req, res) {
+    console.log("making request")
+    conn.query("select * from search where username = ?", [ currentUser], async function (err, rows) {
+        
+        if (err) {
+            console.log(err)
+            res.json({success: false, message: "server error"});
+        } else {
+           
+            const offerRequest = await duffel.offerRequests.create({
+                "slices": [
+                    {
+                      "origin": rows[0].origin,
+                      "destination": rows[0].dest,
+                      "departure_date": rows[0].departuredate.split("T")[0]
+                    },
+                    {
+                      "origin": rows[0].dest,
+                      "destination": rows[0].origin,
+                      "departure_date": rows[0].returndate.split("T")[0]
+                    },
+                  ],
+                  "passengers": [{ "type": "adult" }],
+                  "cabin_class": rows[0].cabinClass
+            })
+        
+            
+            
+            console.log("offers recieved")
+            const offers = await duffel.offers.list({offer_request_id: offerRequest.data.id })
+            console.log("showing offers")
+        
+            res.json({ success: true, message: offers.data })
+        }
+    })  
+    console.log(req.body.return)
+    
+    
+})
 
 // Start the web server
 // 3000 is the port #

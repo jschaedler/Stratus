@@ -40,7 +40,7 @@ function responseHandler(){
     
         message.style.display = "block"
         if (this.response.success) {
-            window.location.replace(this.response.message)
+            message.innerText = this.response.message
         } else {
             console.log(this.response.success)
             message.innerText = this.response.message

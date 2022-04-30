@@ -3,17 +3,23 @@
     <head>
         <title>Login</title>
         <!--import style sheet-->
+        <link href="main.css" rel="stylesheet">
+
         <script  src="main.js" defer></script>
     </head>
 
     <body>
 
-        <p>You made it!</p>
+        <div id="load-content" >
+            <h1>Create a new search or check up on new offers from your last search</h1>
+            <button id="new-search">New Search</button>
+            <button id="old-search" >New Offers</button>
+        
+        </div>
+
+        <div id="search-content"  hidden>
         <form method= "POST" action="/search">
-            <div>
-                <label for="username"> Username</label>
-                <input type="text" id="username" name="username" placeholder="">
-            </div>
+            
             <div>
                 <label for="departure"> Departure Date</label>
                 <input type="date" id="departure" name="departure" placeholder="2022-04-19">
@@ -86,7 +92,11 @@
         </form>
         <input type="submit" id="save" value="save search"></input>
 
-        
+    </div>
+    <div id="loader"  hidden> 
+        <div class="loader"></div>
+        <div>loading flights</div>
+    </div>
         
         <p hidden id="message">
            <table>

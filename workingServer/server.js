@@ -89,7 +89,6 @@ app.get("/index", function(req, res) {
     
 
 })
-
 // post to route "attempt login"
 app.post("/attempt_login", function (req, res) {
     authenticated = false

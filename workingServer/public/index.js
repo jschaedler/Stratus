@@ -32,11 +32,9 @@ function login(event){
     xhr.send(query)
 }
 
-
-
-
 function responseHandler(){
     let message = document.getElementById("message")
+<<<<<<< HEAD
     
         message.style.display = "block"
         if (this.response.success) {
@@ -46,6 +44,15 @@ function responseHandler(){
             message.innerText = this.response.message
         }
     
+=======
+    message.style.display = "block"
+    if (this.response.success){    
+        message.innerText = this.response.message
+    }else{
+        console.log(this.response.success)
+        message.innerText = this.response.message
+    }
+>>>>>>> aa172fac7be092e0cec859e76c5ebc8588fd4e7f
 }
 
 loginButton.addEventListener("click", login)

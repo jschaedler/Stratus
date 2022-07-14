@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+        <link href="index.css" rel="stylesheet">
+        <script  src="login.js" defer></script>
+    </head>
+    <body id="login-body">
+        <div id="login-content" >
+            <form id="login-form" method="POST" action="/attempt_login">
+                <div id="user-div">    
+                    <div>
+                        <label for="username">Username:</label>
+                        <input class="text-input" type="text" name="username" id="username" >
+                    </div>
+                </div>
+                <div id="user-div">
+                    <div class="password">
+                        <label for="password">Password:</label>
+                        <input class="text-input" type="password" name="password", id="password" >
+                    </div>
+                </div>
+                <div id="login-div">
+                    <input type="submit" value="Login" id="login-button">
+                </div>
+            </form>
+            <p  id="message"></p>
+            <div id="register-div">
+                <p>Not a user? <a href="registration.html">Register here</a></p>
+            </div>
+            <div id="main-page-div">
+                <p><button id="main-page-button" href="main">Main Page</button></p>
+            </div>
+        </div>
+    </body>
+</html>

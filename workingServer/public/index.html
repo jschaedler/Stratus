@@ -4,44 +4,40 @@
         <title>Login</title>
         <!--import style sheet-->
         <link href="index.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Paytone One' rel='stylesheet'>
         <script  src="index.js" defer></script>
     </head>
     <body>
-        <div class="separator">
-        <div id="landing-content">
-            <h1>Plan your next getaway</h1>
-            <p>Search thousands of cheap flights to enable your exploration</p>
-            <div >
-                <button id="login-button-load">Login</button>
-                <a href="registration">
-                <button id="register-now" >Create an Account</button>
-            </a>
+        <div id="clouds" >
+            <div id="Header">
+                <h1 id="company">Stratus</h1>
+                <a id="login" href="login.html">
+                    <button id="login-button-load">Sign In</button> 
+                </a>
+                <a id="registration" href="registration">
+                    
+                    <button  id="register-now" >Sign Up</button>
+                </a>
             </div>
-        </div>
+            <div id="content">
+                <div class="content-column" id="content-text-and-buttons">
+                    <h1 id="content-header">Plan your next getaway</h1>
+                        <p>Search thousands of cheap flights around the world to enable your exploration</p>
+                        <div class="content-sign-up">
+                            
+                            <input class="text-input" type="text" id="uname" name="uname" placeholder="  Email">
+                            <a href="registration">
+                            <button id="sign-up" >Sign Up for Stratus </button>
+                        </a>
+                        </div>
+                </div>
+                <div id="content-plane" class="content-column">
+                    <img src="plane.png" alt="plane" id="plane-pic" >
+                </div>
+            </div>
 
-        <div id="login-content" hidden>
-        <form method="POST" action="/attempt_login">
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username" placeholder="username">
-            </div>
-            <div class="password">
-                <label for="password">Password:</label>
-                <input type="password" name="password", id="password" placeholder="password">
-            </div>
-            <div>
-                <input type="submit" value="login" id="login">
-            </div>
-        </form>
-        <p hidden id="message"></p>
-        <div>
-            <p>Not a user? <a href="registration.html">Register here</a></p>
+           
+        
         </div>
-        <div>
-            <p><a href="main">Main Page</a></p>
-        </div>
-
-    </div>
-    </div>    
     </body>
 </html>

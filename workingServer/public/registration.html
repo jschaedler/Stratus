@@ -3,32 +3,34 @@
     <head>
         <title>Login</title>
         <!--import style sheet-->
-        <link href="index.css" rel="stylesheet">
+        <link href="registration.css" rel="stylesheet">
         <script src="registration.js" defer></script>
     </head>
-    <body>
-        <p class="top">Please fill out the information below to register:</p>
-        <div class="separator">
-        <form>
-            <div>
-                <label for="username">Username:</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" placeholder="password">
-            </div>
-            <div>
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="password" name="confirm_password" id="confirm_password" placeholder="confirm password">
-            </div>
-            <div>
-              <input type="submit" value="Register" id="register">  
-            </div>
-        </form>
-
-        <p hidden id="message"></p>
-        <p><a href="/">Return to login page.</a></p>
+    <body >
+        <div id="registration-form" >
+            <form >
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" >
+                </div>
+                <div>
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" name="confirm-password" id="confirm-password">
+                </div>
+                <div id="submit-registration" >
+                    <input type="submit" value="Register" id="register">  
+                </div>
+            </form>
         </div>
+
+        <div id="footer">
+            <p hidden id="message"></p>
+            <p><a href="/">Return to login page.</a></p>
+        </div>
+    
     </body>
 </html>

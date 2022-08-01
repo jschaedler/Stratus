@@ -5,14 +5,36 @@ let landing = document.getElementById("landing-content")
 let loginContent = document.getElementById("login-content")
 let loadLogin = document.getElementById("login-button-load")
 let register = document.getElementById("register-now")
+let signUp = document.getElementById("sign-up")
+let emailUsername = document.getElementById("uname")
+let signUpHref = document.getElementById("sign-up-href")
 const data = null
 
 loadLogin.addEventListener("click", load)
+signUp.addEventListener("click", loadRegistration)
 
 function load(event) {
     loginContent.removeAttribute("hidden")
     landing.setAttribute("hidden", true)
 }
+
+function loadRegistration(event) {
+    emailUsername = document.getElementById("uname").value
+    if ((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailUsername)))
+    {
+        console.log("helllo")
+        signUpHref.setAttribute("href", "registration")
+    }
+    else
+    {
+        console.log(emailUsername)
+        console.log("gbye")
+        alert("You have entered an invalid email address!")
+        signUpHref.setAttribute("href", "#")
+        
+    }
+    
+}   
 
 
 function login(event){

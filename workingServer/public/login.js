@@ -8,6 +8,7 @@ let register = document.getElementById("register-now")
 const data = null
 
 loadLogin.addEventListener("click", load)
+loginButton.addEventListener("click", login)
 
 function load(event) {
     loginContent.removeAttribute("hidden")

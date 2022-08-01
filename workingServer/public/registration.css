@@ -1,0 +1,396 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: rgb(55, 161, 211);
+    background-image: linear-gradient(to top right, rgb(168, 227, 255), rgb(40, 114, 148));
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#registration-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 600px;
+    border: 2px solid white;
+    border-radius: 15px;
+    border: 1px solid white;
+}
+
+
+
+#submit-registration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#register {
+
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 90px;
+    height: 40px;
+}
+
+#confirm-password {
+    background: transparent;
+    border: none;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+
+
+}
+
+label {
+    color: rgb(235, 235, 235);
+    font-family: 'Paytone One';
+}
+
+p {
+    color: rgb(235, 235, 235);
+    font-family: 'Lato';
+}
+
+h1 {
+    font-family: 'Paytone One';
+}
+
+.top {
+    font-size: 24px;
+}
+
+input {
+    font-family: 'Lato',
+        'Lucida Sans Regular',
+        'Lucida Grande',
+        'Lucida Sans Unicode',
+        Geneva,
+        Verdana,
+        sans-serif;
+}
+
+div {
+    padding: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#clouds {
+    height: 100%;
+    background-image: url("clouds.png");
+    background-attachment: fixed;
+    background-size: 110%;
+    background-position: center 120%;
+    background-repeat: no-repeat;
+}
+
+#content {
+    margin-top: 100px;
+    color: #f3f3f3;
+    display: flex;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+#content-text-and-buttons {
+    animation: Opacity .75s forwards ease-out;
+    letter-spacing: 2px;
+}
+
+
+.content-column {
+    flex: 50%;
+}
+
+#content-plane.content-column {
+    display: flex;
+}
+
+#content-header {
+    font-size: 60px;
+    margin: 100px 0px 0px 0px;
+}
+
+#plane-pic {
+    margin-top: 100px;
+    width: 554.25px;
+    height: 224.35px;
+    animation: Fly .75s forwards ease-out;
+}
+
+.content-sign-up {
+    display: flex;
+}
+
+.text-input:focus {
+    outline: none;
+}
+
+#uname {
+    background: transparent;
+    color: #f3f3f3;
+    border: 1px solid white;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+::placeholder {
+    color: #f3f3f3;
+    margin-left: 5px;
+}
+
+#sign-up {
+    background: transparent;
+    color: #f3f3f3;
+    border: 1px solid white;
+    width: 150px;
+    height: 44px;
+    border-radius: 5px;
+    margin-left: 50px;
+}
+
+#Header {
+    animation: MoveUpDown .75s forwards ease-out;
+    list-style-type: none;
+
+    padding: 0;
+    background: transparent;
+    color: azure;
+    display: flex;
+    align-items: center;
+}
+
+.loader {
+
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+}
+
+.header {
+    display: inline-flex;
+
+}
+
+#company {
+    align-self: left;
+    margin: 10px 0 10px 0px;
+    font-size: 40px;
+
+}
+
+#login {
+    margin-left: auto;
+
+}
+
+#login-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pass-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#register-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-page-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-button {
+
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+}
+
+#main-page-button {
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+}
+
+#login-button-load {
+    margin-right: 20px;
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+
+
+
+}
+
+#username {
+    background: transparent;
+    border: none;
+    /* <-- This thing here */
+    border: solid 1px #ccc;
+    border-radius: 5px;
+
+}
+
+#password {
+    background: transparent;
+
+    border: none;
+    /* <-- This thing here */
+    border: solid 1px #ccc;
+    border-radius: 5px;
+}
+
+#login-content {
+    width: 400px;
+    height: 600px;
+    border: 2px solid white;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-form {
+    margin-top: 25%;
+    margin-left: 25%;
+    margin-right: 25%;
+    align-items: center;
+
+}
+
+#login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+
+
+#login-button-load:hover {
+    background-color: #041d2e;
+
+}
+
+#register-now:hover {
+    background-color: #041d2e;
+
+}
+
+#login-button:hover {
+    background-color: #041d2e;
+    cursor: pointer;
+
+}
+
+#main-page-button:hover {
+    background-color: #041d2e;
+
+}
+
+#sign-up:hover {
+    background-color: #041d2e;
+}
+
+#register-now {
+    height: 4.3em;
+    margin-right: 20px;
+
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+
+
+
+}
+
+/* .buttons {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        } */
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes Opacity {
+    0% {
+        opacity: .25;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes Fly {
+    from {
+        margin-top: 300px;
+    }
+
+    to {
+        margin-top: 100px;
+    }
+}
+
+@keyframes MoveUpDown {
+
+    from {
+        opacity: .25;
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+
+    to {
+        opacity: 1;
+        margin-right: 15%;
+        margin-left: 15%;
+    }
+}

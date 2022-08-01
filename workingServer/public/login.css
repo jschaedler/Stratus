@@ -1,0 +1,175 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: rgb(55, 161, 211);
+    background-image: linear-gradient(to top right, rgb(168, 227, 255), rgb(40, 114, 148));
+
+    height: 100vh;
+}
+
+label {
+    color: rgb(235, 235, 235);
+    font-family: 'Paytone One';
+}
+
+p {
+    color: rgb(235, 235, 235);
+    font-family: 'Lato';
+}
+
+h1 {
+    font-family: 'Paytone One';
+}
+
+
+input {
+    font-family: 'Lato',
+        'Lucida Sans Regular',
+        'Lucida Grande',
+        'Lucida Sans Unicode',
+        Verdana,
+        sans-serif;
+}
+
+div {
+    padding: 5px;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+.text-input:focus {
+    outline: none;
+}
+
+#uname {
+    background: transparent;
+    color: #f3f3f3;
+    border: 1px solid white;
+    width: 200px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+::placeholder {
+    color: #f3f3f3;
+    margin-left: 5px;
+}
+
+.header {
+    display: inline-flex;
+
+}
+
+
+
+#login-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pass-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#register-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-page-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-button {
+
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+}
+
+#main-page-button {
+    color: white;
+    background: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+}
+
+#username {
+    background: transparent;
+    border: none;
+    /* <-- This thing here */
+    border: solid 1px #ccc;
+    border-radius: 5px;
+
+}
+
+#password {
+    background: transparent;
+
+    border: none;
+    /* <-- This thing here */
+    border: solid 1px #ccc;
+    border-radius: 5px;
+}
+
+#login-content {
+    width: 400px;
+    height: 600px;
+    border: 2px solid white;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-form {
+    margin-top: 25%;
+    margin-left: 25%;
+    margin-right: 25%;
+    align-items: center;
+
+}
+
+#login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+#login-button:hover {
+    background-color: #041d2e;
+    cursor: pointer;
+
+}
+
+#main-page-button:hover {
+    background-color: #041d2e;
+
+}
+
+
+/* .buttons {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    } */

@@ -1,4 +1,4 @@
-# CS2803-final-project
+# Stratus
 Website to search for flights using the duffel flights api and save searches utilizing a SQL database. 
 
 # Run
